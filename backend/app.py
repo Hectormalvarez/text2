@@ -22,5 +22,12 @@ def create_snippet():
     return jsonify({'id': snippet_id}), 201
 
 
+@app.route('/snippets/<snippet_id>', methods=['GET'])
+def get_snippet(snippet_id):
+    if snippet_id not in snippets:
+        return jsonify({'error': 'Snippet not found'}), 404
+    return jsonify({'text': snippets[snippet_id]['text']}), 200
+
+
 if __name__ == '__main__':
     app.run(debug=True)
