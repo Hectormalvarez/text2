@@ -19,6 +19,7 @@ def create_snippet():
     snippet_id = str(uuid.uuid4())[:6]
     snippets[snippet_id] = {'text': data['text']}
     
+    print(snippets)
     return jsonify({'id': snippet_id}), 201
 
 
@@ -26,7 +27,21 @@ def create_snippet():
 def get_snippet(snippet_id):
     if snippet_id not in snippets:
         return jsonify({'error': 'Snippet not found'}), 404
+    
+    print(snippets)
     return jsonify({'text': snippets[snippet_id]['text']}), 200
+
+@app.route('/snippets', methods=['GET'])
+def get_snippets():
+    return jsonify({'data': snippets})
+
+@app.route('/snippets/<snippet_id>', methods=['DELETE'])
+def delete_snippet(snippet_id):
+    if snippet_id not in snippets:
+        return jsonify({'message': 'Snippet was successfully deleted'})
+    del snippets[snippet_id]
+    print(snippets)
+    return jsonify({'message': 'Snippet was successfully deleted'})
 
 
 if __name__ == '__main__':

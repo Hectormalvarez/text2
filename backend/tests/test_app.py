@@ -41,3 +41,24 @@ def test_get_snippet():
         # Test with an invalid ID
         response = client.get('/snippets/invalid_id')
         assert response.status_code == 404
+
+def test_delete_snippet():
+    with app.test_client() as client:
+        # Create a snippet first
+        data = {'text': 'Test snippet'}
+        response = client.post('/snippets', json=data)
+        snippet_id = response.json['id']
+
+        # Test with a valid ID
+        response = client.delete(f'/snippets/{snippet_id}')
+        assert response.status_code == 200
+        assert response.json['message'] == 'Snippet was successfully deleted'
+
+        # Test to check if snippet is still present in memory
+        response = client.get(f'/snippets/{snippet_id}')
+        assert response.status_code == 404
+
+        # Test with invalid ID
+        response = client.delete(f'/snippets/invalid_id')
+        assert response.status_code == 200
+        assert response.json['message'] == 'Snippet was successfully deleted'
