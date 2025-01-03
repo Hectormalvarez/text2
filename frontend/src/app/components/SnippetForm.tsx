@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./SnippetForm.module.css";
+import styles from "./CommonStyles.module.css";
 
 export default function SnippetForm() {
   const [snippet, setSnippet] = useState("");
@@ -20,15 +20,19 @@ export default function SnippetForm() {
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <textarea
-        aria-label="Enter your snippet"
-        placeholder="Enter your snippet here"
-        value={snippet}
-        onChange={(e) => setSnippet(e.target.value)}
-        className={styles.textarea}
-      />
+      <div className={styles.inputWrapper}>
+        <textarea
+          aria-label="Enter your snippet"
+          placeholder="Enter your snippet here"
+          value={snippet}
+          onChange={(e) => setSnippet(e.target.value)}
+          className={styles.textarea}
+        />
+      </div>
       <button type="submit" className={styles.button}>Submit</button>
-      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.errorContainer}>
+        {error && <p className={styles.error}>{error}</p>}
+      </div>
     </form>
   );
 }
