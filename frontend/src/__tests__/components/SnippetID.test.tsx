@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
-import SnippetID from "../../app/components/SnippetID";
+import SnippetID from "@/app/components/SnippetID";
 
 describe("SnippetID component", () => {
   afterEach(cleanup);

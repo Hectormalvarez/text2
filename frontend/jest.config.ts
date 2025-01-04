@@ -3,14 +3,13 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type {Config} from 'jest';
-import nextJest from 'next/jest.js'
+import type { Config } from "jest";
+import nextJest from "next/jest.js";
 
 const createJestConfig = nextJest({
-    // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-    dir: './',
-})
-
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: "./",
+});
 
 const config: Config = {
   // All imported modules in your tests should be mocked automatically
@@ -85,20 +84,21 @@ const config: Config = {
   // ],
 
   // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //   "js",
-  //   "mjs",
-  //   "cjs",
-  //   "jsx",
-  //   "ts",
-  //   "tsx",
-  //   "json",
-  //   "node"
-  // ],
+  moduleFileExtensions: [
+    "js",
+    "mjs",
+    "cjs",
+    "jsx",
+    "ts",
+    "tsx",
+    "json",
+    "node",
+  ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
-
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+  },
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
 
@@ -109,7 +109,7 @@ const config: Config = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
+  preset: "ts-jest",
 
   // Run tests from one or more projects
   // projects: undefined,
@@ -144,7 +144,7 @@ const config: Config = {
   // setupFiles: [],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
-  // setupFilesAfterEnv: [],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 
   // The number of seconds after which a test is considered as slow and reported as such in the results.
   // slowTestThreshold: 5,
