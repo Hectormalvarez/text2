@@ -1,4 +1,4 @@
-import SnippetID from "./components/SnippetID";
+import SnippetID from "./components/SnippetRetrievalForm";
 import SnippetForm from "./components/SnippetForm";
 import styles from "./page.module.css";
 
