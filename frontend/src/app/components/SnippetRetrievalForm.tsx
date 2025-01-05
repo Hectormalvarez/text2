@@ -1,21 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./CommonStyles.module.css";
+import BaseForm from "./BaseForm";
+import styles from "./SnippetRetrievalForm.module.css";
 
 export default function SnippetRetrievalForm() {
-  const [snippetID, setSnippetID] = useState("");
-  const [error, setError] = useState("");
   const [snippetContent, setSnippetContent] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (snippetID.trim() === "") {
-      setError("Please enter a Snippet ID");
-      return;
-    }
-
+  const handleSubmit = async (snippetID: string) => {
     setError("");
+    setSnippetContent("");
+
     try {
       const response = await fetch(`/api/snippets/${snippetID}`, {
         method: 'GET',
@@ -23,42 +19,33 @@ export default function SnippetRetrievalForm() {
 
       if (!response.ok) {
         if (response.status === 404) {
-          setError("Snippet not found");
-        } else {
-          throw new Error('Failed to retrieve snippet');
+          throw new Error("Snippet not found");
         }
-        return;
+        throw new Error("Failed to retrieve snippet");
       }
 
       const data = await response.json();
       setSnippetContent(data.text);
     } catch (err) {
-      setError("Failed to retrieve snippet");
+      setError(err instanceof Error ? err.message : "An unknown error occurred");
     }
-    setSnippetID("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.inputWrapper}>
-        <input
-          type="text"
-          aria-label="Enter Snippet ID"
-          placeholder="Enter Snippet ID"
-          value={snippetID}
-          onChange={(e) => setSnippetID(e.target.value)}
-          className={styles.input}
-        />
-      </div>
-      <button type="submit" className={styles.button}>Retrieve Snippet</button>
-      <div className={styles.errorContainer}>
-        {error && <p className={styles.error}>{error}</p>}
-      </div>
+    <div className={styles.container}>
+      <BaseForm
+        onSubmit={handleSubmit}
+        buttonText="Retrieve Snippet"
+        inputType="input"
+        placeholder="Enter Snippet ID"
+        ariaLabel="Enter Snippet ID"
+      />
+      {error && <p className={styles.error}>{error}</p>}
       {snippetContent && (
         <div className={styles.snippetContent}>
           <p>{snippetContent}</p>
         </div>
       )}
-    </form>
+    </div>
   );
 }

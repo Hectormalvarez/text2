@@ -1,5 +1,5 @@
-import SnippetID from "./components/SnippetRetrievalForm";
-import SnippetForm from "./components/SnippetCreationForm";
+import SnippetRetrievalForm from "./components/SnippetRetrievalForm";
+import SnippetCreationForm from "./components/SnippetCreationForm";
 import styles from "./page.module.css";
 
 export default function Home() {
@@ -9,11 +9,11 @@ export default function Home() {
       <div className={styles.snippetActions}>
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Retrieve a Snippet</h2>
-          <SnippetID />
+          <SnippetRetrievalForm />
         </div>
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Create a New Snippet</h2>
-          <SnippetForm />
+          <SnippetCreationForm />
         </div>
       </div>
     </div>

@@ -1,24 +1,16 @@
+// src/app/components/SnippetCreationForm.tsx
 "use client";
 
 import { useState } from "react";
-import styles from "./CommonStyles.module.css";
+import BaseForm from "./BaseForm";
+import styles from "./SnippetCreationForm.module.css";
 
-export default function SnippetForm() {
-  const [snippet, setSnippet] = useState("");
-  const [error, setError] = useState("");
+export default function SnippetCreationForm() {
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (snippet: string) => {
     setSuccessMessage("");
 
-    if (snippet.trim() === "") {
-      setError("Please enter a snippet");
-      return;
-    }
-
-    setError("");
     try {
       const response = await fetch("/api/snippets", {
         method: "POST",
@@ -34,30 +26,21 @@ export default function SnippetForm() {
 
       const data = await response.json();
       setSuccessMessage(`Snippet created successfully! ID: ${data.id}`);
-      setSnippet("");
     } catch (error) {
-      setError("Failed to create snippet. Please try again.");
+      throw new Error("Failed to create snippet. Please try again.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.inputWrapper}>
-        <textarea
-          aria-label="Enter your snippet"
-          placeholder="Enter your snippet here"
-          value={snippet}
-          onChange={(e) => setSnippet(e.target.value)}
-          className={styles.textarea}
-        />
-      </div>
-      <button type="submit" className={styles.button}>
-        Create Snippet
-      </button>
-      <div className={styles.errorContainer}>
-        {error && <p className={styles.error}>{error}</p>}
-        {successMessage && <p className={styles.success}>{successMessage}</p>}
-      </div>
-    </form>
+    <div className={styles.container}>
+      <BaseForm
+        onSubmit={handleSubmit}
+        buttonText="Create Snippet"
+        inputType="textarea"
+        placeholder="Enter your snippet here"
+        ariaLabel="Enter your snippet"
+      />
+      {successMessage && <p className={styles.success}>{successMessage}</p>}
+    </div>
   );
 }
