@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import SnippetForm from "@/app/components/SnippetForm";
+import SnippetForm from "@/app/components/SnippetCreationForm";
 
 // Mock the fetch function
 global.fetch = jest.fn() as jest.Mock;

@@ -1,5 +1,5 @@
 import SnippetID from "./components/SnippetRetrievalForm";
-import SnippetForm from "./components/SnippetForm";
+import SnippetForm from "./components/SnippetCreationForm";
 import styles from "./page.module.css";
 
 export default function Home() {
