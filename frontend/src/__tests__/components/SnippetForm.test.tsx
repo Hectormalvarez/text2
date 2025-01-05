@@ -14,12 +14,12 @@ describe('SnippetForm', () => {
   it('renders the form with a textarea and submit button', () => {
     render(<SnippetForm />);
     expect(screen.getByRole('textbox')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Submit/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Create Snippet/i })).toBeInTheDocument();
   });
 
   it('displays an error message when submitting an empty form', async () => {
     render(<SnippetForm />);
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Create Snippet/i }));
     await waitFor(() => {
       expect(screen.getByText(/please enter a snippet/i)).toBeInTheDocument();
     });
@@ -35,7 +35,7 @@ describe("Snippet form creation", () => {
 
     render(<SnippetForm />);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Test snippet' } });
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Create Snippet/i }));
 
     await waitFor(() => {
       expect(global.fetch).toHaveBeenCalledWith('/api/snippets', {
@@ -54,7 +54,7 @@ describe("Snippet form creation", () => {
     
     render(<SnippetForm />);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Test snippet' } });
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Create Snippet/i }));
     
     await waitFor(() => {
       expect(screen.getByText(/snippet created successfully! id: abc123/i)).toBeInTheDocument();
@@ -66,10 +66,10 @@ describe("Snippet form creation", () => {
     
     render(<SnippetForm />);
     fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Test snippet' } });
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Create Snippet/i }));
 
     await waitFor(() => {
-      expect(screen.getByText(/failed to Submit. please try again./i)).toBeInTheDocument();
+      expect(screen.getByText(/Failed to create snippet. Please try again./i)).toBeInTheDocument();
     });
   });
 
@@ -82,7 +82,7 @@ describe("Snippet form creation", () => {
     render(<SnippetForm />);
     const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
     fireEvent.change(textarea, { target: { value: 'Test snippet' } });
-    fireEvent.click(screen.getByRole('button', { name: /Submit/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Create Snippet/i }));
 
     await waitFor(() => {
       expect(textarea.value).toBe('');
