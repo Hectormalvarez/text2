@@ -6,38 +6,41 @@ A simple, serverless text-sharing application built with Flask, Next.js, and AWS
 
 ## Project Status
 
-**Currently in initial development.** Initial project setup complete, and we're starting with a Test-Driven Development (TDD) approach for the backend.
+**In active development.** The backend API now supports creating, retrieving, and deleting snippets. The frontend provides forms for creating and retrieving snippets and displays them. The application is dockerized and runs behind an Nginx proxy. We're continuing to develop the application with a Test-Driven Development (TDD) approach.
+
+## Recent Updates
+
+- **Backend (Flask):** Implemented core API endpoints (`/snippets` and `/snippets/{id}`) for creating, retrieving, and deleting text snippets. Currently using in-memory storage.
+- **Frontend (Next.js):** Implemented forms for creating and retrieving snippets. Basic styling and error handling are in place. Integration with the backend API allows for creating and displaying snippets.
+- **Deployment:** Dockerized the application and set up an Nginx proxy.
 
 ## Immediate Next Steps
 
 ### Backend (Flask)
 
-- Implement core API endpoints (`/snippets`) for creating, retrieving, and deleting text snippets, following TDD.
-- Set up in-memory storage for initial development.
+- Migrate from in-memory storage to a persistent database solution (e.g., DynamoDB).
+- Implement more robust error handling and input validation.
 
 ### Frontend (Next.js)
 
-- Develop UI components for creating and displaying text snippets.
-- Implement API interaction to communicate with the backend.
+- Improve UI/UX and styling.
+- Implement snippet editing functionality.
 
 ### Infrastructure (CDK)
 
-- Define API Gateway endpoints.
-- Create Lambda functions to handle API requests and connect them to the Flask app.
-- Configure deployment to AWS.
+- Begin implementing CDK infrastructure for AWS deployment (API Gateway, Lambda).
 
 ## Future Considerations
 
-- **Persistent Storage:** Migrate from in-memory storage to a serverless database (e.g., DynamoDB) for production.
 - **User Authentication:** Implement user accounts and authentication to associate snippets with users.
 - **CI/CD:** Set up a robust CI/CD pipeline using GitHub Actions for automated testing, building, and deployment.
-- **Enhanced Features:** Explore additional features like snippet editing, sharing, and search.
+- **Enhanced Features:** Explore additional features like snippet sharing, searching, and syntax highlighting.
 
 ## Technologies Used
 
 - Backend: Python, Flask, pytest
-- Frontend: Next.js, React
-- Infrastructure: AWS CDK, API Gateway, Lambda
+- Frontend: Next.js, React, TypeScript, Jest
+- Infrastructure: AWS CDK, API Gateway, Lambda (planned), Docker, Nginx
 
 ## Contributing
 
