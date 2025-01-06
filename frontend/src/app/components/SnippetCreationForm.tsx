@@ -1,4 +1,3 @@
-// src/app/components/SnippetCreationForm.tsx
 "use client";
 
 import { useState } from "react";
@@ -7,9 +6,11 @@ import styles from "./SnippetCreationForm.module.css";
 
 export default function SnippetCreationForm() {
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (snippet: string) => {
     setSuccessMessage("");
+    setErrorMessage("");
 
     try {
       const response = await fetch("/api/snippets", {
@@ -27,7 +28,7 @@ export default function SnippetCreationForm() {
       const data = await response.json();
       setSuccessMessage(`Snippet created successfully! ID: ${data.id}`);
     } catch (error) {
-      throw new Error("Failed to create snippet. Please try again.");
+      setErrorMessage("Failed to create snippet. Please try again.");
     }
   };
 
@@ -41,6 +42,7 @@ export default function SnippetCreationForm() {
         ariaLabel="Enter your snippet"
       />
       {successMessage && <p className={styles.success}>{successMessage}</p>}
+      {errorMessage && <p className={styles.error}>{errorMessage}</p>}
     </div>
   );
 }
