@@ -1,7 +1,5 @@
 from flask import Flask, request, jsonify
 
-import uuid
-
 from models import Snippet
 from storage import Storage, InMemoryStorage
 
